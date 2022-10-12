@@ -1,0 +1,15 @@
+network:
+  version: 2
+  ethernets:
+    nics:
+      match:
+        name: ens*
+      dhcp4: no
+      addresses:
+        - 10.99.120.73/26
+      gateway4: 10.99.120.65
+      nameservers:
+        addresses:
+          - 8.8.8.8
+#local-hostname: w13tf-vm-md
+#instance-id: w13tf-vm-md
