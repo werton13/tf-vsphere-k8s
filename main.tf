@@ -33,7 +33,8 @@ data "vsphere_virtual_machine" "template_from_ovf" {
 }
 
 data "template_file" "cloud-init" {
-  template = file("./templates/userdata.yaml") 
+#  template = file("./templates/userdata.yaml") 
+template = file("${path.module}/templates/userdata.yaml")
   vars = {
     vm_user_name = var.vm_user_name
     vm_user_displayname = var.vm_user_displayname
