@@ -24,7 +24,7 @@ Below configuration applied via cloud-init:
     I'm use my own playbook: https://github.com/werton13/Ansible-DSKLinuxCustom.git
 
 Below configuration applied via Ansible playbook:
-`#000080`
+
  1. change default SSH port to specified in variables
  2. disable SSH password authentication
  3. modify /etc/hosts to add Lab vsphere ESXi host specified in variables
@@ -32,7 +32,7 @@ Below configuration applied via Ansible playbook:
  5. create service for vnc user with username specified in variables
  6. copy terraform binary to local system folder
  7. copy terraform vsphere and template providers to local user folders
-`#000080`
+
 **not implemented yet** 
 -  install additional software requiring complex installtion ( kubectl, vs code, docker).
 
