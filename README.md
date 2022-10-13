@@ -50,29 +50,31 @@ provider "vsphere" {
 module "new-mgmtvm" {
   source = "github.com/werton13/tf-vsphere-linux-vnc-vm"
 
-   
    vsphere_clustername = var.vsphere_clustername
    dcname = var.dcname
    dcstore_name = var.dcstore_name
    vsphere_host_ip = var.vsphere_host_ip
    esxi_host_name = var.esxi_host_name
    vm_name = var.vm_name
-   vm_cpu_count = var.vm_cpu_count
-   vm_ram_size = var.vm_ram_size
-   vm_disk_size = var.vm_disk_size
    vm_template_name = var.vm_template_name
    vnet_name = var.vnet_name
    vm_user_name = var.vm_user_name
    vm_user_displayname = var.vm_user_displayname
    vm_user_password = var.vm_user_password
    vm_user_ssh_key = var.vm_user_ssh_key
-   ansible_repo_url = var.ansible_repo_url
-   ansible_playbook = var.ansible_playbook
-   vm_ssh_port = var.vm_ssh_port
-   ansible_repo_name  = var.ansible_repo_name
    vnc_password = var.vnc_password
 
 }
+```
+Below arguments are optional, their have default values, but can be specified in the following way:
+```
+vm_cpu_count = var.vm_cpu_count # default 2
+vm_ram_size = var.vm_ram_size   # default 1024
+vm_disk_size = var.vm_disk_size # default 20
+ansible_repo_url = var.ansible_repo_url # default "https://github.com/werton13/Ansible-DSKLinuxCustom.git"
+ansible_playbook = var.ansible_playbook # default "main.yaml
+ansible_repo_name  = var.ansible_repo_name # default "Ansible-DSKLinuxCustom"
+vm_ssh_port = var.vm_ssh_port # default 22
 ```
 When specifying a password value you should provide it not in clear form but SHA-512 hash
 you can prepare such password with a command:

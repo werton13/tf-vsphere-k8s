@@ -36,22 +36,22 @@ variable esxi_host_name {
  variable vm_cpu_count {
    type        = string
    default     = "2"
-   description = "quantity of cpu"
+   description = "quantity of cpu cores for virtual machine"
  }
  variable vm_ram_size {
    type        = string
    default     = "1024"
-   description = "vm RAM"
+   description = "Amount of RAM allocated for virtual machine"
  }
  variable vm_disk_size {
    type        = string
    default     = "20"
-   description = "vm disk size"
+   description = "system disk size allocated for virtual machine"
  }
  variable vm_template_name  {
    type        = string
    default     = ""
-   description = "description"
+   description = "virtual machine template name prepared for cloud-init customisation"
  }
  variable vnet_name {
    type        = string
@@ -62,49 +62,49 @@ variable esxi_host_name {
  variable vm_user_name {
    type        = string
    default     = ""
-   description = "description"
+   description = "user name for a new vm user"
  }
   variable vm_user_displayname {
    type        = string
    default     = ""
-   description = "description"
+   description = "user  display name for a new vm user"
  }
  
   variable vm_user_password {
    type        = string
    default     = ""
-   description = "description"
+   description = "user password for a new vm user - should be SHA512 hash from desired password"
  }
   variable vm_user_ssh_key {
    type        = string
    default     = ""
-   description = "description"
+   description = "user ssh key for a new vm user"
  }
   variable ansible_repo_url {
    type        = string
    default     = "https://github.com/werton13/Ansible-DSKLinuxCustom.git"
-   description = "description"
+   description = "ansible playbook URL for vm advanced customisations"
  }
  
  variable  ansible_playbook{
    type        = string
    default     = "main.yaml"
-   description = "description"
+   description = "ansible playbook for vm advanced customisations"
  }
 variable vm_ssh_port {
   type        = string
-  default     = ""
-  description = "description"
+  default     = "22"
+  description = "vm ssh port to open - can be custom, default 22"
 }
 variable ansible_repo_name  {
   type        = string
   default     = "Ansible-DSKLinuxCustom"
-  description = "description"
+  description = "ansible git repository name for vm advanced customisations"
 }
 variable vnc_password {
   type        = string
   default     = ""
-  description = "description"
+  description = "password for connecting to a VNC server - it is different from vm user password"
 }
 
 
