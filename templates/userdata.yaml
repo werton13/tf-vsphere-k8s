@@ -28,6 +28,7 @@ packages:
   - net-tools
   - nmap
   - git
+  - tree
   - openssh-server
   - tigervnc-common
   - tigervnc-standalone-server

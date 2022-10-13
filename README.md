@@ -37,9 +37,46 @@ Below configuration applied via Ansible:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 HOW TO USE:
-#######################################
+To use this module you have to fill provider block and specify required variables as in example below:
+```hcl
+provider "vsphere" {
+  user                 = var.vsphere_user
+  password             = var.vsphere_password
+  vsphere_server       = var.vsphere_server
+  allow_unverified_ssl = true
+}
 
-will add a little later
- 
+module "new-mgmtvm" {
+  source = "github.com/werton13/tf-vsphere-linux-vnc-vm"
+
+   
+   vsphere_clustername = var.vsphere_clustername
+   dcname = var.dcname
+   dcstore_name = var.dcstore_name
+   vsphere_host_ip = var.vsphere_host_ip
+   esxi_host_name = var.esxi_host_name
+   vm_name = var.vm_name
+   vm_cpu_count = var.vm_cpu_count
+   vm_ram_size = var.vm_ram_size
+   vm_disk_size = var.vm_disk_size
+   vm_template_name = var.vm_template_name
+   vnet_name = var.vnet_name
+   vm_user_name = var.vm_user_name
+   vm_user_displayname = var.vm_user_displayname
+   vm_user_password = var.vm_user_password
+   vm_user_ssh_key = var.vm_user_ssh_key
+   ansible_repo_url = var.ansible_repo_url
+   ansible_playbook = var.ansible_playbook
+   vm_ssh_port = var.vm_ssh_port
+   ansible_repo_name  = var.ansible_repo_name
+   vnc_password = var.vnc_password
+
+}
+```
+When specifying a password value you should provide it not in clear form but SHA-512 hash
+you can prepare such password with a command:
+```sh
+mkpasswd --method=SHA-512 --rounds=4096
+```
 
 ######################################
