@@ -35,9 +35,10 @@ Below configuration applied via Ansible:
 **not implemented yet** 
 -  install additional software requiring complex installtion ( kubectl, vs code, docker).
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 HOW TO USE:
 To use this module you have to fill provider block and specify required variables as in example below:
+
 ```hcl
 provider "vsphere" {
   user                 = var.vsphere_user
@@ -75,8 +76,7 @@ module "new-mgmtvm" {
 ```
 When specifying a password value you should provide it not in clear form but SHA-512 hash
 you can prepare such password with a command:
+
 ```sh
 mkpasswd --method=SHA-512 --rounds=4096
 ```
-
-######################################
