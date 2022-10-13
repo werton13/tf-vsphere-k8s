@@ -32,8 +32,8 @@ Below configuration applied via Ansible:
  6 copy terraform binary to local system folder
  7 copy terraform vsphere and template providers to local user folders
 
-** not implemented yet ** 
--  install additional software requiring complex installtion ( kubectl, vs code, docker)
+**not implemented yet** 
+-  install additional software requiring complex installtion ( kubectl, vs code, docker).
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 HOW TO USE:
