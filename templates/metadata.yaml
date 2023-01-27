@@ -6,10 +6,10 @@ network:
         name: ens*
       dhcp4: no
       addresses:
-        - 10.99.120.73/26
-      gateway4: 10.99.120.65
+        - vm_ip_address
+      gateway4: ${ipv4_gateway}
       nameservers:
         addresses:
-          - 8.8.8.8
-#local-hostname: w13tf-vm-md
+          - ${dns_server}
+local-hostname: os_host_name
 #instance-id: w13tf-vm-md

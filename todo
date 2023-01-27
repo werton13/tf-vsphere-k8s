@@ -1,0 +1,26 @@
+# Terraform
+1) create dictionary for keeping peroperties of different vm groups (+)
+2) create additional vsphere_virtual_machine resource for workers (+)
+3) create separate userdata file for masters
+  - write to /etc/hosts all mastrer and workers
+  - enable ansible playbook
+  - add all new variables to pass Ansible
+
+populate ansible environments file with hostnames ans sshkeys and sudo passwords
+write file with ip-name pairs to /home/%adminname%/hosts_to_copy
+
+# Ansible
+    1) разобраться с containerd - невозможность инициализации, версия, репо и.т.п (+)
+    2) join команда - нужно ли парсить на \t (+)
+    3) аналогично сохранить join команду для воркеров (+)
+    4) запуск calico (+)
+    5) join masters[1..2] (+)
+    6) join workers       (+)
+    7) vmware CSI (+)
+    8) haproxy
+    --------------------------------------------------------
+    9) certmanager
+    10) ingress controller
+    11) audit configuration
+    12) prometheus+graphana
+    10) RBAC+gatekeeper
