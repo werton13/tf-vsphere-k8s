@@ -77,11 +77,11 @@ template = file("${path.module}/templates/userdata_m.yaml")
     k8s_cluster_id      = var.k8s_cluster_id
     sc_storage_policy_name = var.sc_storage_policy_name
     sc_name             = var.sc_name
-    hosts_entry1        = "${var.vms.masters.ip_pool[0]}  ${var.vms.masters.pref-0}"
-    hosts_entry2        = "${var.vms.masters.ip_pool[1]}  ${var.vms.masters.pref-1}"
-    hosts_entry3        = "${var.vms.workers.ip_pool[0]}  ${var.vms.workers.pref-0}"
-    hosts_entry4        = "${var.vms.workers.ip_pool[1]}  ${var.vms.workers.pref-1}"
-    hosts_entry5        = "${var.vms.workers.ip_pool[2]}  ${var.vms.workers.pref-2}"
+    hosts_entry1        = "${var.vms.masters.ip_pool[0]}  ${var.vms.masters.pref}-0"
+    hosts_entry2        = "${var.vms.masters.ip_pool[1]}  ${var.vms.masters.pref}-1"
+    hosts_entry3        = "${var.vms.workers.ip_pool[0]}  ${var.vms.workers.pref}-0"
+    hosts_entry4        = "${var.vms.workers.ip_pool[1]}  ${var.vms.workers.pref}-1"
+    hosts_entry5        = "${var.vms.workers.ip_pool[2]}  ${var.vms.workers.pref}-2"
     master0_ip          =  "${var.vms.masters.ip_pool[0]}"
     master1_ip          =  "${var.vms.masters.ip_pool[1]}"
     worker0_ip          =  "${var.vms.workers.ip_pool[0]}" 
@@ -139,15 +139,15 @@ template = file("${path.module}/templates/metadata.yaml")
   #}
   
 }
-data "template_cloudinit_config" "cloud-init" {
-  gzip          = false
-  base64_encode = true
-
-  part {
-    content_type = "text/cloud-config"
-    content      = data.template_file.cloud-init.rendered
-  }
-}
+#data "template_cloudinit_config" "cloud-init" {
+#  gzip          = false
+#  base64_encode = true
+#
+#  part {
+#    content_type = "text/cloud-config"
+#    content      = data.template_file.cloud-init.rendered
+#  }
+#}
 
  
 resource "vsphere_virtual_machine" "k8s_masters_vm"  {
