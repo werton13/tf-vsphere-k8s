@@ -71,7 +71,6 @@ module "vsphere-k8s-cluster" {
   k8s_cluster_name           = var.k8s_cluster_name
   k8s_controlPlane_Endpoint  = var.k8s_controlPlane_Endpoint
   k8s_cluster_id             = var.k8s_cluster_id
-  ingress_lb_ip              = var.ingress_lb_ip
   sc_storage_policy_name     = var.sc_storage_policy_name
   sc_name                    = var.sc_name
 
