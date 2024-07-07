@@ -101,8 +101,6 @@ module "vsphere-k8s-cluster" {
   tenant_emailaddress        = var.tenant_emailaddress
   certificate_validity       = var.certificate_validity
   
-
-  
   k8s_ver           = var.k8s_ver  
   k8s_version_short = var.k8s_version_short
   calico_version    = var.calico_version
@@ -120,39 +118,6 @@ module "vsphere-k8s-cluster" {
   <summary><b>Default values</b></summary>
 
 ```  
-vcloud_allow_unverified_ssl = "true"
-vcloud_max_retry_timeout    = "240"
-vms = {
-    dvm = {
-      pref = "dvm"
-      vm_cpu_count = "2"
-      vm_ram_size  = "4096"
-      vm_disk_size = "20"
-      vm_count = "1"
-      ip_pool = ["192.168.253.100/24"]
-    }  
-    masters = {
-      pref = "k8s-mst"
-      vm_cpu_count = "2"
-      vm_ram_size  = "4096"
-      vm_disk_size = "40"
-      vm_count = "3"
-      ip_pool =  ["192.168.253.11/24", 
-                  "192.168.253.12/24",
-                  "192.168.253.13/24"]
-    },
-    workers = {
-      pref = "k8s-wrk"
-      vm_cpu_count = "4"
-      vm_ram_size  = "8192"
-      vm_disk_size = "40"
-      vm_count = "3"
-      ip_pool =  ["192.168.253.14/24",
-                  "192.168.253.15/24",
-                  "192.168.253.16/24"]
-
-    }
-}
 add_disks = {
           disk1 = {
             sizegb = "10"
@@ -170,19 +135,21 @@ add_disks = {
           }
 }
 docker_mirror     = "mirror.gcr.io"
-ansible_repo_url  = "https://github.com/werton13/k8s-kubeadm-ansible.git"
-ansible_repo_name = "k8s-kubeadm-ansible"
-ansible_playbook  = "main.yaml"
+ansible_repo_url  = "https://github.com/werton13/k8s-kubeadm-r2.git"
+ansible_repo_name = "k8s-kubeadm-r2"
+ansible_repo_branch = "dev"
+ansible_playbook = "main.yaml"
+
 os_admin_username = "kuberadm"
 
-k8s_ver           = "1.22.17-00"
-k8s_version_short = "1.22.0"
-calico_version    = "v3.25.0"
+k8s_ver           = "1.28.6-1.1"
+k8s_version_short = "1.28.6"
+calico_version    = "v3.27.2"
 
 k8s_service_subnet = "10.96.0.0/12"
 k8s_pod_subnet     = "10.244.0.0/22"
 calico_network_cidr_blocksize = "26"
+
 ```
 
-  
 </details>

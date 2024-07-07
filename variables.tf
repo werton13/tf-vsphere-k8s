@@ -63,18 +63,6 @@ variable "vnet_name" {
    description = "virtual network name"
  }
 
-#Additional disks vars
-variable "add_disks" {
-  type = map(object({
-    sizegb          = string
-    bus_num         = string
-    unit_num        = string
-    storage_profile = string
-    bus_type        = string
-  }))
-  default = {}
-}
-
 
 variable "vm_user_name" {
    type        = string
@@ -121,30 +109,57 @@ variable "vms" {
     }))
  }
 
+#Additional disks vars
+variable "add_disks" {
+  type = map(object({
+    sizegb          = string
+    bus_num         = string
+    unit_num        = string
+    storage_profile = string
+    bus_type        = string
+  }))
+  default = {
+          disk1 = {
+            sizegb = "10"
+            bus_num = "1"
+            unit_num = "0"
+            storage_profile = ""
+            bus_type = "paravirtual" 
+          }
+          disk2 = {
+            sizegb = "30"
+            bus_num = "1"
+            unit_num = "1"
+            storage_profile = ""
+            bus_type = "paravirtual"  
+          }
+ }
+}
+
 ############ for Ansible playbook
 variable "ansible_repo_url" {
    type        = string
-   default     = ""
+   default     = "https://github.com/werton13/k8s-kubeadm-r2.git"
    description = "ansible playbook URL for vm advanced customizations"
  }
 variable ansible_repo_branch {
   type        = string
-  default     = "main"
+  default     = "dev"
   description = "description"
 }
 variable "ansible_repo_name"  {
   type        = string
-  default     = "Ansible-DSKLinuxCustom"
-  description = "ansible git repository name for vm advanced customizations"
+  default     = "k8s-kubeadm-r2"
+  description = "ansible git repository name for kubernetes cluster bootstrap"
  }
 variable "ansible_playbook" {
    type        = string
    default     = "main.yaml"
-   description = "ansible playbook for vm advanced customizations"
+   description = "ansible playbook for ansible git repository name for kubernetes cluster bootstrap"
  }
 variable "os_admin_username" {
   type        = string
-  default     = ""
+  default     = "kuberadm"
   description = "description"
  }
 variable "os_nic1_name" {
@@ -164,17 +179,17 @@ variable ansible_ssh_pass {
 
 variable "k8s_ver" {
   type        = string
-  default     = ""
+  default     = "1.28.6-1.1"
   description = "description"
  }
 variable "k8s_version_short" {
   type        = string
-  default     = ""
+  default     = "1.28.6"
   description = "description"
  }
 variable "calico_version" {
   type        = string
-  default     = ""
+  default     = "v3.27.2"
   description = "description"
  }
 variable "vsphere_csi_driver_version" {
