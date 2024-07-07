@@ -1,6 +1,6 @@
 # vSphere variables 
-vsphere_server = "99chlab-vcp01.mtscloud.local"
-vsphere_host_ip = "10.99.120.66"
+vsphere_server = "your target vsphere server fqdn"
+vsphere_host_ip = "your target  vsphere host IP "
 vsphere_vm_folder = "" #"/DC name as in dcname variable/vm/Your-K8s-Lab"
 
 vsphere_user = "vsphre_username"
@@ -17,8 +17,9 @@ vnet_name = "vsphere virtual network to attach vms"
 
 vm_user_name  = "vm os admin name" # will be created
 vm_user_displayname = "cluster admin"
-vm_user_password = "$6$rounds=---"
-vm_user_ssh_key = "ssh-ed25519 somessh pub key here lab@kubernetes"
+
+vm_user_password = "$6$rounds=----."                 # mkpasswd  --method=SHA-512 --rounds=4096 somesecretpassword
+vm_user_ssh_key = "ssh-ed25519 somessh pub key here" # ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "john@example.com" 
 
 vm_ipv4_gw    = "ip gateway to use in vm ip configuration"
 vm_dns_server = "dns server to be configured in vms ip configuration "
