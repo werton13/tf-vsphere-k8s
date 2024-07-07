@@ -1,4 +1,4 @@
-# vSphere variables 
+# --- vSphere variables ---
 variable "vsphere_server" {
   type        = string
   default     = ""
@@ -52,11 +52,29 @@ variable "vm_template_name"  {
    description = "virtual machine template name prepared for cloud-init customisation"
  }
 
+variable "vm_hardware_version" {
+   default = 19 #15
+   type = number
+ }
+
 variable "vnet_name" {
    type        = string
    default     = ""
    description = "virtual network name"
  }
+
+#Additional disks vars
+variable "add_disks" {
+  type = map(object({
+    sizegb          = string
+    bus_num         = string
+    unit_num        = string
+    storage_profile = string
+    bus_type        = string
+  }))
+  default = {}
+}
+
 
 variable "vm_user_name" {
    type        = string
@@ -106,18 +124,23 @@ variable "vms" {
 ############ for Ansible playbook
 variable "ansible_repo_url" {
    type        = string
-   default     = "https://github.com/werton13/Ansible-DSKLinuxCustom.git"
-   description = "ansible playbook URL for vm advanced customisations"
+   default     = ""
+   description = "ansible playbook URL for vm advanced customizations"
  }
+variable ansible_repo_branch {
+  type        = string
+  default     = "main"
+  description = "description"
+}
 variable "ansible_repo_name"  {
   type        = string
   default     = "Ansible-DSKLinuxCustom"
-  description = "ansible git repository name for vm advanced customisations"
+  description = "ansible git repository name for vm advanced customizations"
  }
 variable "ansible_playbook" {
    type        = string
    default     = "main.yaml"
-   description = "ansible playbook for vm advanced customisations"
+   description = "ansible playbook for vm advanced customizations"
  }
 variable "os_admin_username" {
   type        = string
@@ -125,6 +148,11 @@ variable "os_admin_username" {
   description = "description"
  }
 variable "os_nic1_name" {
+  type        = string
+  default     = ""
+  description = "description"
+ }
+variable ansible_ssh_pass {
   type        = string
   default     = ""
   description = "description"
@@ -154,6 +182,19 @@ variable "vsphere_csi_driver_version" {
   default     = ""
   description = "description"
  }
+
+variable helm_version {
+  type        = string
+  default     = "v3.11.1"
+  description = "Helm version "
+}
+
+variable k8s_cluster_name {
+  type        = string
+  default     = "k8s_cluster"
+  description = "k8s cluster name "
+}
+
 variable "k8s_controlPlane_Endpoint" {
   type        = string
   default     = ""
@@ -195,14 +236,99 @@ variable vm_user_ssh_pk {
   description = "description"
 }
 
+variable ingress_ext_fqdn {
+  type        = string
+  default     = ""
+  description = "FQDN to build general prefix for the K8s Ingress controller endpoint's, published to outside"
+}
+
+# sensitive variables for Alert manager telegram integration
+variable alertmgr_telegram_receiver_name {
+  type        = string
+  default     = ""
+  description = "alert manager receiver name for a Telegram receiver"
+}
+variable alertmgr_telegram_bot_token {
+  type        = string
+  default     = ""
+  description = "telegram bot token for alertmanager integration"
+}
+variable alertmgr_telegram_chatid {
+  type        = string
+  default     = ""
+  description = "telegram chat_id for alertmanager integration"
+}
+
+variable docker_mirror {
+  type        = string
+  default     = "mirror.gcr.io"
+  description = "allow to change global image registry from docker.io to some mirror, default google mirror"
+}
 
 
+variable ingress_controller_nodeport_http {
+  type        = string
+  default     = "30888"
+  description = "node port value for ingress controller service http endpoint"
+}
+variable ingress_controller_nodeport_https {
+  type        = string
+  default     = "30443"
+  description = "node port value for ingress controller service https endpoint"
+}
 
+variable "def_dns" {
+  type        = string
+  default     = ""
+  description = "default dns ip address configured in the template"
+}
+variable "env_dns1" {
+  type        = string
+  default     = ""
+  description = "description"
+}
+variable "env_dns2" {
+  type        = string
+  default     = ""
+  description = "description"
+}
 
+variable tenant_cluster_ro_rolename {
+  type        = string
+  default     = ""
+  description = "description"
+}
 
-
-
-
+variable tenant_ns_default {
+  type        = string
+  default     = ""
+  description = "description"
+}
+variable tenant_k8s_admin_username {
+  type        = string
+  default     = ""
+  description = "description"
+}
+variable tenant_orgname {
+  type        = string
+  default     = ""
+  description = "description"
+}
+variable tenant_orgname_orgunit {
+  type        = string
+  default     = ""
+  description = "description"
+}
+variable tenant_emailaddress {
+  type        = string
+  default     = ""
+  description = "description"
+}
+variable certificate_validity {
+  type        = string
+  default     = "30"
+  description = "description"
+}
 
 
 
