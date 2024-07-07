@@ -104,7 +104,7 @@ write_files:
       #!/bin/bash
       export ip_net=$(echo ${master0_ip} | cut -d '.' -f1-3)
       export master0_ip_4=$(echo ${master0_ip} | cut -d '.' -f4)
-      export worker0_ip_4=$(($(echo ${master0_ip} | cut -d '.' -f4)+5))
+      export worker0_ip_4=$(($(echo ${master0_ip} | cut -d '.' -f4)+3))
       
       for (( m=0;m<=$((${masters_count}-1));m++ ));do ip=$((master0_ip_4 + m)); echo "$ip_net.$ip  ${master_pref}-$m" >> /etc/hosts; done
       for (( w=0;w<=$((${workers_count}-1));w++ ));do ip=$((worker0_ip_4 + w)); echo "$ip_net.$ip  ${worker_pref}-$w" >> /etc/hosts; done
