@@ -104,6 +104,10 @@ module "vsphere-k8s-cluster" {
   k8s_version_short = var.k8s_version_short
   calico_version    = var.calico_version
   docker_mirror     = var.docker_mirror 
+  vsphere_csi_driver_version = var.vsphere_csi_driver_version
+
+  k8s_service_subnet = var.k8s_service_subnet
+  k8s_pod_subnet     = var.k8s_pod_subnet
 
   vm_user_ssh_pk = <<-EOT
   '-----BEGIN OPENSSH PRIVATE KEY-----

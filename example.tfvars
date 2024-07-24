@@ -3,7 +3,7 @@ vsphere_server = "your target vsphere server fqdn"
 vsphere_host_ip = "your target  vsphere host IP "
 vsphere_vm_folder = "" #"/DC name as in dcname variable/vm/Your-K8s-Lab"
 
-vsphere_user = "vsphre_username"
+vsphere_user = "vsphre_username@domain.name"#for example "csi_username@testlab.local"       
 vsphere_password = "vsphere_usersecretpassword"
 
 dcname = "vsphere dc name"
