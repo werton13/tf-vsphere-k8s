@@ -77,6 +77,9 @@ write_files:
     path: /etc/hosts
     append: true
   - content: |
+      [lb]
+      ${lb_name}
+
       [dvm]
       ${dvm_name}
 
@@ -103,11 +106,14 @@ write_files:
   - content: |
       #!/bin/bash
       export ip_net=$(echo ${master0_ip} | cut -d '.' -f1-3)
+      export lb0_ip_4=$(echo ${lb0_ip} | cut -d '.' -f4)
       export master0_ip_4=$(echo ${master0_ip} | cut -d '.' -f4)
       export worker0_ip_4=$(($(echo ${master0_ip} | cut -d '.' -f4)+3))
       
+      
       for (( m=0;m<=$((${masters_count}-1));m++ ));do ip=$((master0_ip_4 + m)); echo "$ip_net.$ip  ${master_pref}-$m" >> /etc/hosts; done
       for (( w=0;w<=$((${workers_count}-1));w++ ));do ip=$((worker0_ip_4 + w)); echo "$ip_net.$ip  ${worker_pref}-$w" >> /etc/hosts; done
+      for (( l=0;l<=$((${lb_count}-1));l++ ));do ip=$((lb0_ip_4 + l)); echo "$ip_net.$ip  ${lb_pref}-$l" >> /etc/hosts; done
    
     path:  /add_hosts_records.sh
     permissions: "0744"

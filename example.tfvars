@@ -26,13 +26,22 @@ vm_dns_server = "dns server to be configured in vms ip configuration "
 
 
 vms = {
+    lb = {
+      pref = "k8s-lb"
+      vm_cpu_count = "2"
+      vm_ram_size  = "2048"
+      vm_disk_size = "20"
+      vm_count = "2"
+      ip_pool = ["192.168.253.100/24",
+                 "192.168.253.101/24"]
+    }
     dvm = {
       pref = "dvm"
       vm_cpu_count = "2"
       vm_ram_size  = "4096"
       vm_disk_size = "20"
       vm_count = "1"
-      ip_pool = ["192.168.253.100/24"]
+      ip_pool = ["192.168.253.110/24"]
     }  
     masters = {
       pref = "k8s-mst"

@@ -179,19 +179,6 @@ data "template_file" "cloudinit_dvm" {
   
       cloud_type         = "vsphere" #to let ansible know which csi to install
   
-      #vcloud_vdc         = var.vcloud_vdc
-      #vcloud_orgname     = var.vcloud_orgname
-      #vcloud_user        = var.vcloud_user
-      #vcloud_password    = var.vcloud_password
-      #vcloud_csiadmin_username   = var.vcloud_csiadmin_username
-      #vcloud_csiadmin_password   = var.vcloud_csiadmin_password
-      #vcloud_url         = var.vcloud_url
-  
-      #vcloud_catalogname = var.vcloud_catalogname
-      #vcloud_vmtmplname  = var.vcloud_vmtmplname
-      #vcloud_orgvnet     = var.vcloud_orgvnet
-      #vapp_name          = var.vapp_name
-  
       vm_user_name        = var.vm_user_name
       vm_user_password    = var.vm_user_password
       vm_user_displayname = var.vm_user_displayname     
@@ -231,8 +218,6 @@ data "template_file" "cloudinit_dvm" {
       alertmgr_telegram_bot_token     = var.alertmgr_telegram_bot_token
       alertmgr_telegram_chatid        = var.alertmgr_telegram_chatid
       
-      #vcloud_fqdn        = "${substr(var.vcloud_url, 8, -4}"
-      #vcloud_ip     = var.vcloud_ip
       vsphere_ip       = var.vsphere_host_ip
       vsphere_fqdn     = var.vsphere_server
       vsphere_server   = var.vsphere_server
@@ -243,6 +228,7 @@ data "template_file" "cloudinit_dvm" {
       
       master_pref = "${var.vms.masters.pref}"
       worker_pref = "${var.vms.workers.pref}"
+      lb_pref     = "${var.vms.lb.pref}"
   
       master0_ip          = "${split("/", var.vms.masters.ip_pool[0])[0]}"
   
@@ -255,6 +241,74 @@ data "template_file" "cloudinit_dvm" {
       #master1_name        = "${var.vms.masters.pref}-1"
       #master2_name        = "${var.vms.masters.pref}-2"
   
+      worker0_name        = "${var.vms.workers.pref}-0"
+       
+      lb0_ip              = "${split("/", var.vms.lb.ip_pool[0])[0]}"
+      master0_ip          = "${split("/", var.vms.masters.ip_pool[0])[0]}"
+      master1_ip          = "${split("/", var.vms.masters.ip_pool[1])[0]}"
+      master2_ip          = "${split("/", var.vms.masters.ip_pool[2])[0]}"
+  
+  
+      def_dns             =  var.def_dns
+      env_dns1            =  var.env_dns1
+      env_dns2            =  var.env_dns2
+  
+  
+      workers_count       = var.vms.workers.vm_count
+      masters_count       = var.vms.masters.vm_count
+      lb_count            = var.vms.lb.vm_count
+
+
+      ansible_ssh_pass    = var.ansible_ssh_pass
+      
+      tenant_cluster_ro_rolename = var.tenant_cluster_ro_rolename
+      tenant_ns_default          = var.tenant_ns_default
+      tenant_k8s_admin_username  = var.tenant_k8s_admin_username
+      tenant_orgname             = var.tenant_orgname
+      tenant_orgname_orgunit     = var.tenant_orgname_orgunit
+      tenant_emailaddress        = var.tenant_emailaddress
+      certificate_validity       = var.certificate_validity
+  
+    }
+}
+
+data "template_file" "cloudinit_lb" {
+#  template = file("./templates/userdata.yaml") 
+  template = file("${path.module}/templates/userdata_lb.yaml")
+    vars = {
+  
+      cloud_type         = "vsphere" #to let ansible know which csi to install
+  
+      vm_user_name        = var.vm_user_name
+      vm_user_password    = var.vm_user_password
+      vm_user_displayname = var.vm_user_displayname     
+      vm_user_ssh_key     = var.vm_user_ssh_key
+      vm_user_ssh_pk      = var.vm_user_ssh_pk
+       
+      os_admin_username   = var.os_admin_username
+      os_nic1_name        = var.os_nic1_name
+      
+      docker_mirror       = var.docker_mirror
+        
+      vsphere_ip       = var.vsphere_host_ip
+      vsphere_fqdn     = var.vsphere_server
+      vsphere_server   = var.vsphere_server
+      vsphere_user     = var.vsphere_user
+      vsphere_password = var.vsphere_password
+      vsphere_csi_driver_version = var.vsphere_csi_driver_version
+      dcname           = var.dcname
+      
+      master_pref = "${var.vms.masters.pref}"
+      worker_pref = "${var.vms.workers.pref}"
+      
+  
+      master0_ip          = "${split("/", var.vms.masters.ip_pool[0])[0]}"
+  
+      hosts_entry0        = "${var.vsphere_host_ip}  ${var.vsphere_server}"
+      hosts_entry1        = "${split("/", var.vms.dvm.ip_pool[0])[0]}  ${var.vms.dvm.pref}"
+
+      dvm_name            = "${var.vms.dvm.pref}"
+ 
       worker0_name        = "${var.vms.workers.pref}-0"
        
       master0_ip          = "${split("/", var.vms.masters.ip_pool[0])[0]}"
@@ -271,22 +325,7 @@ data "template_file" "cloudinit_dvm" {
       masters_count       = var.vms.masters.vm_count
       ansible_ssh_pass    = var.ansible_ssh_pass
       
-      tenant_cluster_ro_rolename = var.tenant_cluster_ro_rolename
-      tenant_ns_default          = var.tenant_ns_default
-      tenant_k8s_admin_username  = var.tenant_k8s_admin_username
-      tenant_orgname             = var.tenant_orgname
-      tenant_orgname_orgunit     = var.tenant_orgname_orgunit
-      tenant_emailaddress        = var.tenant_emailaddress
-      certificate_validity       = var.certificate_validity
+
   
     }
 }
-#data "template_cloudinit_config" "cloud-init" {
-#  gzip          = false
-#  base64_encode = true
-#
-#  part {
-#    content_type = "text/cloud-config"
-#    content      = data.template_file.cloud-init.rendered
-#  }
-#}
