@@ -122,7 +122,6 @@ write_files:
       for (( i=$((${workers_count}-1));i>=0;i-- ));do sed -i "/\[workers\]/a ${worker_pref}-$i" /K8s-inventory ;done
       for (( i=$((${lb_count}-1));i>=0;i-- ));do sed -i "/\[haproxy\]/a ${lb_pref}-$i" /K8s-inventory ;done
       
-      ${lb_name}
     path: /add_inventory_records.sh
     permissions: "0744"
   - content: |
