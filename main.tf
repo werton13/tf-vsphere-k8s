@@ -124,9 +124,10 @@ resource "vsphere_virtual_machine" "k8s_workers_vm"  {
 resource "vsphere_virtual_machine" "haproxy_lb"  {
   depends_on       = [vsphere_virtual_machine.k8s_workers_vm,
                       vsphere_virtual_machine.k8s_masters_vm]
-  name             = "${var.vms.lb.pref}"
+  name             = "${var.vms.lb.pref}--${count.index}"
   hardware_version = var.vm_hardware_version
   enable_disk_uuid = true
+  count            = var.vms.lb.vm_count
   #"${var.vms.masters.pref}-${var.vms.masters.ip_pool[count.index]}
   
   resource_pool_id = data.vsphere_compute_cluster.cluster.resource_pool_id
