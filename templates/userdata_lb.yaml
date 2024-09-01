@@ -66,6 +66,7 @@ packages:
   - sshpass
   - software-properties-common
   - haproxy
+  - keepalived
 
 
 write_files:
@@ -94,4 +95,7 @@ runcmd:
   - sed -i 's/PasswordAuthentication no/#PasswordAuthentication no/' /etc/ssh/sshd_config
   - [ systemctl, daemon-reload ]
   - [ systemctl, restart, --no-block, ssh.service ]
+  - [ systemctl, enable, keepalived.service ]
+  - [ systemctl, restart, --no-block, keepalived.service ]
+  - [ systemctl, restart, --no-block, haproxy.service ]
   

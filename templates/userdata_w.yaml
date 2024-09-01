@@ -46,8 +46,8 @@ write_files:
       export master0_ip_4=$(echo ${master0_ip} | cut -d '.' -f4)
       export worker0_ip_4=$(($(echo ${master0_ip} | cut -d '.' -f4)+3))
       
-      for (( m=0;m<=$((${masters_count}-1));m++ ));do ip=$((master0_ip_4 + m)); echo "$ip_net.$ip  ${master_pref}-$m" >> /etc/hosts; done
-      for (( w=0;w<=$((${workers_count}-1));w++ ));do ip=$((worker0_ip_4 + w)); echo "$ip_net.$ip  ${worker_pref}-$w" >> /etc/hosts; done     
+      for (( m=1;m<=$((${masters_count}));m++ ));do ip=$((master0_ip_4 + m - 1)); echo "$ip_net.$ip  ${master_pref}-0$m" >> /etc/hosts; done
+      for (( w=1;w<=$((${workers_count}));w++ ));do ip=$((worker0_ip_4 + w - 1)); echo "$ip_net.$ip  ${worker_pref}-0$w" >> /etc/hosts; done 
     path:  /add_hosts_records.sh
     permissions: "0744"
 

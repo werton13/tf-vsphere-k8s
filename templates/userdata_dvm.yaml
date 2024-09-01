@@ -110,16 +110,18 @@ write_files:
       export worker0_ip_4=$(($(echo ${master0_ip} | cut -d '.' -f4)+3))
       
       
-      for (( m=0;m<=$((${masters_count}-1));m++ ));do ip=$((master0_ip_4 + m)); echo "$ip_net.$ip  ${master_pref}-$m" >> /etc/hosts; done
-      for (( w=0;w<=$((${workers_count}-1));w++ ));do ip=$((worker0_ip_4 + w)); echo "$ip_net.$ip  ${worker_pref}-$w" >> /etc/hosts; done
+      for (( m=1;m<=$((${masters_count}));m++ ));do ip=$((master0_ip_4 + m - 1)); echo "$ip_net.$ip  ${master_pref}-0$m" >> /etc/hosts; done
+      for (( w=1;w<=$((${workers_count}));w++ ));do ip=$((worker0_ip_4 + w - 1)); echo "$ip_net.$ip  ${worker_pref}-0$w" >> /etc/hosts; done
+
+
       for (( l=0;l<=$((${lb_count}-1));l++ ));do ip=$((lb0_ip_4 + l)); echo "$ip_net.$ip  ${lb_pref}-$l" >> /etc/hosts; done
    
     path:  /add_hosts_records.sh
     permissions: "0744"
   - content: |
       #!/bin/bash
-      for (( i=$((${masters_count}-1));i>=0;i-- ));do sed -i "/\[masters\]/a ${master_pref}-$i" /K8s-inventory ;done
-      for (( i=$((${workers_count}-1));i>=0;i-- ));do sed -i "/\[workers\]/a ${worker_pref}-$i" /K8s-inventory ;done
+      for (( i=$((${masters_count}));i>=1;i-- ));do sed -i "/\[masters\]/a ${master_pref}-0$i" /K8s-inventory ;done
+      for (( i=$((${workers_count}));i>=1;i-- ));do sed -i "/\[workers\]/a ${worker_pref}-0$i" /K8s-inventory ;done
       for (( i=$((${lb_count}-1));i>=0;i-- ));do sed -i "/\[haproxy\]/a ${lb_pref}-$i" /K8s-inventory ;done
       
     path: /add_inventory_records.sh
@@ -136,6 +138,7 @@ write_files:
            master2_ip='${master2_ip}'
            workers_count='${workers_count}'
            masters_count='${masters_count}'
+           lb_count='${lb_count}'
            worker0_name='${worker0_name}' 
            vsphere_ip='${vsphere_ip}'
            vsphere_fqdn='${vsphere_fqdn}'

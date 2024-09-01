@@ -122,14 +122,28 @@ module "vsphere-k8s-cluster" {
 
 ```  
 add_disks = {
-          disk1 = {
+          diskm1 = {
             sizegb = "10"
             bus_num = "1"
             unit_num = "0"
             storage_profile = ""
             bus_type = "paravirtual" 
           }
-          disk2 = {
+          diskm2 = {
+            sizegb = "30"
+            bus_num = "1"
+            unit_num = "1"
+            storage_profile = ""
+            bus_type = "paravirtual"  
+          }
+          diskw1 = {
+            sizegb = "10"
+            bus_num = "1"
+            unit_num = "0"
+            storage_profile = ""
+            bus_type = "paravirtual" 
+          }
+          diskw2 = {
             sizegb = "30"
             bus_num = "1"
             unit_num = "1"
