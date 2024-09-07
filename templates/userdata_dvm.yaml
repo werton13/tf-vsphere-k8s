@@ -210,6 +210,7 @@ runcmd:
        masters_count=${masters_count}
        worker0_name=${worker0_name}
        master_pref=${master_pref}
+       lb_count=${lb_count}
        vsphere_ip=${vsphere_ip}
        vsphere_fqdn=${vsphere_fqdn}
        vsphere_server=${vsphere_server}
