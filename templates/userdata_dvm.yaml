@@ -101,6 +101,11 @@ write_files:
       ansible_user=${os_admin_username}
       ansible_sudo_pass=${ansible_ssh_pass}
 
+      [haproxy:vars]
+      ansible_connection=local
+      ansible_user=${os_admin_username}
+      ansible_sudo_pass=${ansible_ssh_pass}
+
     path: /K8s-inventory
   - content: |
       #!/bin/bash
