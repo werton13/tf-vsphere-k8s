@@ -163,7 +163,7 @@ resource "vsphere_virtual_machine" "haproxy_lb"  {
   extra_config = {
      "guestinfo.userdata" = base64encode(data.template_file.cloudinit_lb.rendered)
      "guestinfo.userdata.encoding" = "base64"
-     "guestinfo.metadata" = base64encode(replace((replace((data.template_file.metadata.rendered), "vm_ip_address",var.vms.lb.ip_pool[0])), "os_host_name", "${var.vms.lb.pref}"))
+     "guestinfo.metadata" = base64encode(replace((replace((data.template_file.metadata.rendered), "vm_ip_address",var.vms.lb.ip_pool[count.index])), "os_host_name", "${var.vms.lb.pref}-0${count.index + 1}")) 
      "guestinfo.metadata.encoding" = "base64"
     
   }  
