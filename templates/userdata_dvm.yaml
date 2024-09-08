@@ -104,7 +104,7 @@ write_files:
       [haproxy:vars]
       ansible_connection=ssh
       ansible_user=${os_admin_username}
-      ansible_ssh_pass=${ansible_ssh_pass
+      ansible_ssh_pass=${ansible_ssh_pass}
       ansible_sudo_pass=${ansible_ssh_pass}
 
     path: /K8s-inventory
@@ -118,7 +118,6 @@ write_files:
       
       for (( m=1;m<=$((${masters_count}));m++ ));do ip=$((master0_ip_4 + m - 1)); echo "$ip_net.$ip  ${master_pref}-0$m" >> /etc/hosts; done
       for (( w=1;w<=$((${workers_count}));w++ ));do ip=$((worker0_ip_4 + w - 1)); echo "$ip_net.$ip  ${worker_pref}-0$w" >> /etc/hosts; done
-
 
       for (( l=1;l<=$((${lb_count}));l++ ));do ip=$((lb0_ip_4 + l -1)); echo "$ip_net.$ip  ${lb_pref}-0$l" >> /etc/hosts; done
    
