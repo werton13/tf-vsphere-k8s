@@ -65,8 +65,8 @@ packages:
   - openssh-server
   - sshpass
   - software-properties-common
-  - haproxy
-  - keepalived
+#  - haproxy
+#  - keepalived
 
 
 write_files:
