@@ -102,8 +102,9 @@ write_files:
       ansible_sudo_pass=${ansible_ssh_pass}
 
       [haproxy:vars]
-      ansible_connection=local
+      ansible_connection=ssh
       ansible_user=${os_admin_username}
+      ansible_ssh_pass=${ansible_ssh_pass
       ansible_sudo_pass=${ansible_ssh_pass}
 
     path: /K8s-inventory
@@ -119,7 +120,7 @@ write_files:
       for (( w=1;w<=$((${workers_count}));w++ ));do ip=$((worker0_ip_4 + w - 1)); echo "$ip_net.$ip  ${worker_pref}-0$w" >> /etc/hosts; done
 
 
-      for (( l=0;l<=$((${lb_count}-1));l++ ));do ip=$((lb0_ip_4 + l)); echo "$ip_net.$ip  ${lb_pref}-$l" >> /etc/hosts; done
+      for (( l=1;l<=$((${lb_count}));l++ ));do ip=$((lb0_ip_4 + l -1)); echo "$ip_net.$ip  ${lb_pref}-0$l" >> /etc/hosts; done
    
     path:  /add_hosts_records.sh
     permissions: "0744"
@@ -127,7 +128,7 @@ write_files:
       #!/bin/bash
       for (( i=$((${masters_count}));i>=1;i-- ));do sed -i "/\[masters\]/a ${master_pref}-0$i" /K8s-inventory ;done
       for (( i=$((${workers_count}));i>=1;i-- ));do sed -i "/\[workers\]/a ${worker_pref}-0$i" /K8s-inventory ;done
-      for (( i=$((${lb_count}-1));i>=0;i-- ));do sed -i "/\[haproxy\]/a ${lb_pref}-$i" /K8s-inventory ;done
+      for (( i=$((${lb_count}));i>=1;i-- ));do sed -i "/\[haproxy\]/a ${lb_pref}-0$i" /K8s-inventory ;done
       
     path: /add_inventory_records.sh
     permissions: "0744"

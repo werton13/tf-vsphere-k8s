@@ -124,7 +124,7 @@ resource "vsphere_virtual_machine" "k8s_workers_vm"  {
 resource "vsphere_virtual_machine" "haproxy_lb"  {
   depends_on       = [vsphere_virtual_machine.k8s_workers_vm,
                       vsphere_virtual_machine.k8s_masters_vm]
-  name             = "${var.vms.lb.pref}--${count.index}"
+  name             = "${var.vms.lb.pref}-0${count.index + 1}"
   hardware_version = var.vm_hardware_version
   enable_disk_uuid = true
   count            = var.vms.lb.vm_count
